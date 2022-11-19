@@ -1,15 +1,11 @@
 //Напишите функцию, которая проверяет, является ли число целым используя побитовые операторы
 function isInteger(n) {
-    let tmp = n & n;
-    if(tmp === n)
-        return true;
-    else
-        return false;
+    return (n & n) === n
 }
 
 //Напишите функцию, которая возвращает массив четных чисел от 2 до 20 включительно
 function even() {
-    let arr = Array();
+    const arr = [];
     for(let i = 2; i < 21; i += 2){
         arr.push(i);
     }
@@ -32,7 +28,6 @@ function recSumTo(n) {
         return 1;
     }
     sum = n + recSumTo(n - 1);
-
     return sum;
 }
 
@@ -46,10 +41,7 @@ function factorial(n) {
 
 //Напишите функцию, которая определяет, является ли число двойкой, возведенной в степень
 function isBinary(n){
-    if((n & (n-1)) === 0 && n !== 0)
-        return true;
-    else
-        return false;
+    return ((n & (n-1)) === 0 && n !== 0)
 }
 
 //Напишите функцию, которая находит N-е число Фибоначчи
@@ -75,14 +67,13 @@ function fibonacci(n) {
 function getOperationFn(initialValue, operatorFn) {
     let result = initialValue;
     if(!!operatorFn) {
-        return function fun(n) {
-            let res = operatorFn(result, n);
-            result = res;
-            return res
+        return function(n) {
+            result = operatorFn(result, n);
+            return result;
         }
     }
     else {
-        return function (){
+        return function(){
             return initialValue;
         };
     }
@@ -105,31 +96,16 @@ function getOperationFn(initialValue, operatorFn) {
  * console.log(generator()); // 9
  */
 function sequence(start, step) { // 10 13 16
-    let FunStart = start;
-    let i = 0;
-    if(!!start && !!step) {
-        return function fun() {
-            if (i === 0) {
-                i = 1
-                return FunStart;
-            } else {
-                FunStart += step;
-                return FunStart;
-            }
-        }
-    }
-    else{
-        start = 0
-        step = 1
-        FunStart = start
-        return function fun() {
-            if (i === 0) {
-                i = 1
-                return FunStart;
-            } else {
-                FunStart += step;
-                return FunStart;
-            }
+    start = start ?? 0
+    step = step ?? 1
+    let i = true;
+    return function() {
+        if (i) {
+            i = false
+            return start;
+        } else {
+            start += step;
+            return start;
         }
     }
 }
